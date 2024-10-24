@@ -1,6 +1,5 @@
 package com.example.spacexandroidapplication.ui.launchDetail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -19,19 +18,24 @@ class LaunchDetailViewModel(
     fun handleIntent(intent: LaunchDetailIntent) {
         when (intent) {
             is LaunchDetailIntent.LoadPayloads -> loadPayloads(intent.payloadIds)
+            is LaunchDetailIntent.Retry -> retryLoading(intent.payloadIds)
         }
     }
 
     private fun loadPayloads(payloadIds: List<String>) {
-        viewModelScope.launch {
-            try {
-                val payloads = repository.fetchPayloads(payloadIds)
-                Log.d("Bakayarou", "payloads = $payloads")
-                _state.value = LaunchDetailState.Success(payloads)
-            } catch (e: Exception) {
-                Log.d("Bakayarou", "e = $e")
+        if (payloadIds.isNotEmpty())
+            viewModelScope.launch {
+                try {
+                    val payloads = repository.fetchPayloads(payloadIds)
+                    _state.value = LaunchDetailState.Success(payloads)
+                } catch (e: Exception) {
+                    _state.value = LaunchDetailState.Error
+                }
             }
-        }
+    }
+
+    private fun retryLoading(payloadIds: List<String>) {
+        handleIntent(LaunchDetailIntent.LoadPayloads(payloadIds))
     }
 }
 

@@ -12,7 +12,7 @@ import com.example.spacexandroidapplication.ui.splash.SplashScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController, repository: SpaceXRepository) {
-    NavHost(navController = navController, startDestination = "launches") {
+    NavHost(navController = navController, startDestination = "splash") {
         composable("splash") { SplashScreen(navController) }
         composable("launches") {
             LaunchesScreen(onLaunchItemSelected = { launch ->

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ErrorScreen(
-    errorMessage: String,
+    errorMessage: String = "An error occurred while loading data. Please check your internet connection and try again",
     onRetry: () -> Unit
 ) {
     Box(
@@ -28,7 +28,7 @@ fun ErrorScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Error: $errorMessage",
+                text = errorMessage,
                 style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(16.dp))

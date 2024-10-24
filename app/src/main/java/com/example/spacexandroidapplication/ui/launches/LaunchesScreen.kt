@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.spacexandroidapplication.data.repository.SpaceXRepository
+import com.example.spacexandroidapplication.ui.components.ErrorScreen
+import com.example.spacexandroidapplication.ui.components.LoadingIndicator
 import com.example.spacexandroidapplication.ui.model.LaunchUIModel
 
 @Composable
@@ -22,21 +23,18 @@ fun LaunchesScreen(
     onLaunchItemSelected: (LaunchUIModel) -> Unit,
     viewModel: LaunchesViewModel = viewModel(factory = LaunchesViewModelFactory(repository)),
 ) {
-
     val state by viewModel.state.collectAsState()
     val listState = rememberLazyListState()
 
     when (state) {
         is LaunchesState.Loading -> {
-            CircularProgressIndicator()
+            LoadingIndicator()
         }
 
         is LaunchesState.Error -> {
-            val errorState = state as LaunchesState.Error
-            Text(
-                text = errorState.message,
-                modifier = Modifier.padding(16.dp),
-            )
+            ErrorScreen {
+                viewModel.handleIntent(LaunchesIntent.Retry)
+            }
         }
 
         is LaunchesState.Success -> {

@@ -28,12 +28,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.example.spacexandroidapplication.data.repository.SpaceXRepository
+import com.example.spacexandroidapplication.ui.components.ErrorScreen
 import com.example.spacexandroidapplication.ui.model.LaunchUIModel
 import com.example.spacexandroidapplication.ui.model.PayloadUIModel
 
@@ -56,14 +58,16 @@ fun LaunchDetailScreen(
     LaunchDetailColumn(launch, payloads)
 
     when (state) {
-        is LaunchDetailState.Loading -> {
-        }
-
         is LaunchDetailState.Success -> {
             payloads.addAll((state as LaunchDetailState.Success).payloads)
         }
 
         is LaunchDetailState.Error -> {
+            ErrorScreen {
+                viewModel.handleIntent(
+                    LaunchDetailIntent.Retry(launch.payloadIds)
+                )
+            }
         }
 
         is LaunchDetailState.Idle -> {
@@ -92,11 +96,11 @@ fun LaunchDetailColumn(launch: LaunchUIModel, payloads: MutableList<PayloadUIMod
             style = MaterialTheme.typography.titleMedium
         )
         Image(
-            painter = rememberImagePainter(
-                launch.imageUrl,
-                builder = {
-                    transformations(CircleCropTransformation())
-                }
+            painter = rememberAsyncImagePainter(
+                ImageRequest.Builder(LocalContext.current).data(launch.imageUrl)
+                    .apply(block = fun ImageRequest.Builder.() {
+                        transformations(CircleCropTransformation())
+                    }).build()
             ),
             contentDescription = null,
             modifier = Modifier
