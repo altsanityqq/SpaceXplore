@@ -1,4 +1,4 @@
-package com.example.spacexandroidapplication.ui.launches
+package com.example.spacexandroidapplication.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

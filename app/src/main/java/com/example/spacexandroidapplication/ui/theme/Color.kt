@@ -12,5 +12,3 @@ val Pink40 = Color(0xFF7D5260)
 
 val SuccessGreen = Color(0xFF4CAF50)
 val FailureRed = Color(0xFFF44336)
-val UpcomingYellow = Color(0xFFFFC107)
-val NeutralGray = Color(0xFF9E9E9E)

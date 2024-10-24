@@ -26,9 +26,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.spacexandroidapplication.ui.model.LaunchUIModel
 import com.example.spacexandroidapplication.ui.theme.FailureRed
-import com.example.spacexandroidapplication.ui.theme.NeutralGray
 import com.example.spacexandroidapplication.ui.theme.SuccessGreen
-import com.example.spacexandroidapplication.ui.theme.UpcomingYellow
 
 @Composable
 fun LaunchItem(launch: LaunchUIModel, onClick: () -> Unit) {
@@ -99,10 +97,8 @@ fun LaunchItem(launch: LaunchUIModel, onClick: () -> Unit) {
 @Composable
 fun StatusIndicator(status: String) {
     val color = when (status) {
-        "Successful" -> SuccessGreen
-        "Failed" -> FailureRed
-        "Upcoming" -> UpcomingYellow
-        else -> NeutralGray
+        "Success" -> SuccessGreen
+        else -> FailureRed
     }
 
     Box(

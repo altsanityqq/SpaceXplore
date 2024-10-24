@@ -2,9 +2,14 @@ package com.example.spacexandroidapplication.ui.launches
 
 import com.example.spacexandroidapplication.ui.model.LaunchUIModel
 
-data class LaunchesState(
-    val launches: List<LaunchUIModel> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val selectedLaunchId: String? = null
-)
+sealed class LaunchesState {
+    object Loading : LaunchesState()
+    data class Success(
+        val launches: MutableList<LaunchUIModel> = mutableListOf(),
+        val isLastPage: Boolean,
+        val isLoading: Boolean = false
+    ) : LaunchesState()
+
+    data class Error(val message: String) : LaunchesState()
+    object Idle : LaunchesState()
+}

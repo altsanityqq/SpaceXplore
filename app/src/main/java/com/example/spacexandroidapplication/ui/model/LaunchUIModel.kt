@@ -14,4 +14,4 @@ data class LaunchUIModel(
     val payloadIds: List<String> = emptyList(),
     val details: String = "",
     val flickrImageUrls: List<String> = emptyList(), // list of images that shared on https://www.flickr.com/
-): Parcelable
+) : Parcelable
