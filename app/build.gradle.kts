@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -69,4 +70,9 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.gson)
+    implementation(libs.viewmodel.lifecycle)
+    implementation(libs.paging)
+    implementation(libs.compose.paging)
+    implementation(libs.coil)
+    implementation(libs.compose.navigation)
 }
