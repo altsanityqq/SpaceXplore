@@ -7,6 +7,7 @@ data class RequestModel(
     @SerializedName("options") val options: Options
 ) {
     data class Options(
-        @SerializedName("page") val page: Int
+        @SerializedName("page") val page: Int,
+        @SerializedName("limit") val limit: Int
     )
 }

@@ -9,7 +9,7 @@ data class LaunchUIModel(
     val name: String,
     val date: String,
     val status: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val rocketName: String,
     val payloadIds: List<String> = emptyList(),
     val details: String = "",

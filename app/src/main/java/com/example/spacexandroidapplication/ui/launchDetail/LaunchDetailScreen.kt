@@ -181,7 +181,7 @@ fun PayloadCard(payload: PayloadUIModel) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = payload.name ?: "Unknown Payload",
+                text = payload.name,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.primary
             )

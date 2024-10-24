@@ -9,7 +9,7 @@ import com.example.spacexandroidapplication.ui.model.PayloadUIModel
 class SpaceXRepository(private val api: SpaceXApi) {
 
     suspend fun fetchLaunches(page: Int): LaunchResponse {
-        return api.getLaunches(RequestModel(options = RequestModel.Options(page)))
+        return api.getLaunches(RequestModel(options = RequestModel.Options(page, 20)))
     }
 
     suspend fun fetchPayloads(payloadIds: List<String>): List<PayloadUIModel> {

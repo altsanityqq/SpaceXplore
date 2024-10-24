@@ -1,4 +1,4 @@
-package com.example.spacexandroidapplication
+package com.example.spacexandroidapplication.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
